@@ -8,6 +8,8 @@ MAINTAINER Aaron Weitekamp <aweiteka@redhat.com>
 
 LABEL io.k8s.description="Ansible playbook to image builder" \
       io.k8s.display-name="playbook2image" \
+      io.s2i.scripts-url=image:///usr/libexec/s2i \
+      io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       #io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,ansible,playbook"
 
@@ -19,8 +21,10 @@ RUN yum install -y ansible python-pip python-devel && yum clean all -y
 # TODO (optional): Copy the builder files into /opt/app-root
 #COPY ./<builder_folder>/ /opt/app-root/
 
+ENV STI_SCRIPTS_PATH=/usr/libexec/s2i
+
 # TODO: Copy the S2I scripts to /usr/libexec/s2i, since openshift/base-centos7 image sets io.openshift.s2i.scripts-url label that way, or update that label
-COPY ./.s2i/bin/ /usr/libexec/s2i
+COPY ./.s2i/bin/ $STI_SCRIPTS_PATH
 
 # TODO: Drop the root user and make the content of /opt/app-root owned by user 1001
 RUN chown -R 1001:1001 /opt/app-root
@@ -28,4 +32,4 @@ RUN chown -R 1001:1001 /opt/app-root
 # This default user is created in the openshift/base-centos7 image
 USER 1001
 
-CMD ["usage"]
+CMD $STI_SCRIPTS_PATH/usage
