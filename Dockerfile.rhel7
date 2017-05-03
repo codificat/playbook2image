@@ -36,6 +36,7 @@ RUN yum repolist > /dev/null && \
 
 COPY ./.s2i/bin/ /usr/libexec/s2i
 COPY user_setup /tmp
+COPY system-container/exports /exports
 
 ENV APP_ROOT=/opt/app-root
 ENV USER_NAME=default \

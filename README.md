@@ -38,6 +38,8 @@ In this workflow we build a new image with our playbook, setup secrets (private 
                -e INVENTORY_URL=URL \
                IMAGE_FROM_BUILD_STEP
 
+  * To run it as a system container see the [README.md](system-container/README.md) under `system-container` for details about why would you want to do this and how to do it.
+
 ### Runtime Environment Variable Options
 
 A container run from a *playbook2image* image needs at least these configured options:

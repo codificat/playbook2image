@@ -1,0 +1,11 @@
+{
+    "version": "1.0",
+    "defaultValues": {
+        "OPTS": "",
+        "VAR_LIB_PLAYBOOK2IMAGE" : "/var/lib/playbook2image",
+        "VAR_LOG_ANSIBLE_LOG": "/var/log/ansible.log",
+        "SSH_ROOT": "/root/.ssh",
+        "PLAYBOOK_FILE": "playbooks/main.yml",
+        "INVENTORY_FILE": "/dev/null"
+    }
+}
