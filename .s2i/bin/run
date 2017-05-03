@@ -13,7 +13,10 @@
 #set -x
 USER_ID=$(id -u)
 GROUP_ID=$(id -g)
-sed "s@${USER_NAME}:x:\${USER_ID}:\${GROUP_ID}@${USER_NAME}:x:${USER_ID}:${GROUP_ID}@g" ${APP_ROOT}/etc/passwd.template > /etc/passwd
+if [[ ${USER_ID} -ne 0 ]]; then
+  sed "s@${USER_NAME}:x:\${USER_ID}:\${GROUP_ID}@${USER_NAME}:x:${USER_ID}:${GROUP_ID}@g" \
+      ${APP_ROOT}/etc/passwd.template > /etc/passwd
+fi
 
 INVENTORY="$(mktemp)"
 if [[ -v INVENTORY_FILE ]]; then
