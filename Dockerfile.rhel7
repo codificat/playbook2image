@@ -1,7 +1,7 @@
 # playbook2image
 FROM rhscl/python-27-rhel7:2.7
 
-MAINTAINER Aaron Weitekamp <aweiteka@redhat.com>
+MAINTAINER OpenShift Team <dev@lists.openshift.redhat.com>
 
 # TODO: Rename the builder environment variable to inform users about application you provide them
 # ENV BUILDER_VERSION 1.0
@@ -30,7 +30,7 @@ USER root
 # To use a subscription inside container yum command has to be run first (before
 # yum-config-manager) https://access.redhat.com/solutions/1443553
 RUN yum repolist > /dev/null && \
-    yum-config-manager --enable rhel-7-server-ose-3.4-rpms && \
+    yum-config-manager --enable rhel-7-server-ose-3.6-rpms && \
     yum install -y --setopt=tsflags=nodocs ansible && \
     yum clean all -y
 
