@@ -14,6 +14,7 @@ LABEL io.k8s.description="Ansible playbook to image builder" \
       name="playbook2image" \
       summary="Ansible playbook to image builder" \
       description="Base image to to ship Ansible playbooks as self-executing container image." \
+      atomic.run="once" \
       com.redhat.component="playbook2image-docker" \
       vcs-url="https://github.com/openshift/playbook2image" \
       vcs-type="git" \
@@ -36,6 +37,7 @@ RUN yum repolist > /dev/null && \
 
 COPY ./.s2i/bin/ /usr/libexec/s2i
 COPY user_setup /tmp
+COPY system-container/exports /exports
 
 ENV APP_ROOT=/opt/app-root
 ENV USER_NAME=default \

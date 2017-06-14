@@ -13,6 +13,7 @@ LABEL io.k8s.description="Ansible playbook to image builder" \
       name="playbook2image" \
       summary="Ansible playbook to image builder" \
       description="Base image to to ship Ansible playbooks as self-executing container image." \
+      atomic.run="once" \
       vcs-url="https://github.com/openshift/playbook2image" \
       vcs-type="git" \
       version="alpha"
@@ -27,6 +28,7 @@ RUN yum install -y  --setopt=tsflags=nodocs ansible python-pip python-devel && y
 
 COPY ./.s2i/bin/ /usr/libexec/s2i
 COPY user_setup /tmp
+COPY system-container/exports /exports
 ADD README.md /help.1
 
 ENV APP_ROOT=/opt/app-root
