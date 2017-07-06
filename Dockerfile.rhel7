@@ -1,5 +1,5 @@
 # playbook2image
-FROM rhscl/python-27-rhel7:2.7
+FROM rhel7.3:7.3-released
 
 MAINTAINER OpenShift Team <dev@lists.openshift.redhat.com>
 
@@ -53,7 +53,8 @@ RUN chmod -R ug+x ${APP_ROOT}/bin ${APP_ROOT}/etc /tmp/user_setup && \
 # Back to the UID used in the base image
 USER ${USER_UID}
 
-RUN sed "s@${USER_NAME}:x:${USER_UID}:0@${USER_NAME}:x:\${USER_ID}:\${GROUP_ID}@g" /etc/passwd > ${APP_ROOT}/etc/passwd.template
+RUN cp /etc/passwd ${APP_ROOT}/etc/passwd.template && \
+    echo "default:x:\${USER_ID}:\${GROUP_ID}:Default Application User:/opt/app-root/src:/sbin/nologin" >> ${APP_ROOT}/etc/passwd.template
 
 WORKDIR ${APP_HOME}
 
